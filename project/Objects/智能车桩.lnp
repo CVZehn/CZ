@@ -2,6 +2,9 @@
 ".\Objects\motor.obj",
 ".\Objects\timer0.obj",
 ".\Objects\oled.obj",
-".\Objects\NRF24L01.obj" 
+".\Objects\NRF24L01.obj",
+".\Objects\GP2Y_ADC.obj",
+".\Objects\usart1.obj",
+".\Objects\usart2.obj" 
 TO ".\Objects\智能车桩" 
 PRINT(".\Listings\智能车桩.m51") RAMSIZE(256) 

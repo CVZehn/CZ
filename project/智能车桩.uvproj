@@ -392,11 +392,6 @@
               <FilePath>.\scr\timer0.c</FilePath>
             </File>
             <File>
-              <FileName>project_config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\project_config.h</FilePath>
-            </File>
-            <File>
               <FileName>oled.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\scr\oled.c</FilePath>
@@ -405,6 +400,26 @@
               <FileName>NRF24L01.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\scr\NRF24L01.c</FilePath>
+            </File>
+            <File>
+              <FileName>GP2Y_ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\scr\GP2Y_ADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\scr\usart1.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\scr\usart2.c</FilePath>
+            </File>
+            <File>
+              <FileName>project_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\project_config.h</FilePath>
             </File>
           </Files>
         </Group>

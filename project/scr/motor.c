@@ -67,3 +67,23 @@ void ConStep(uchar var)
 	}
 }
 
+void rise()
+{
+	uchar i=0;
+		for(i=0; i<8; i++)
+		{
+			P2=upstep8_table[i]<<1;
+			delay(1);
+		}
+}
+
+void decline()
+{
+    
+	uchar i=0;
+		for(i=7; i>0; --i)
+		{
+			P2=upstep8_table[i]<<1;
+			delay(1);
+		}
+}

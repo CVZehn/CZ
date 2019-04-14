@@ -1,4 +1,4 @@
-C51 COMPILER V9.53.0.0   MAIN                                                              04/14/2019 17:05:29 PAGE 1   
+C51 COMPILER V9.53.0.0   MAIN                                                              04/14/2019 20:22:29 PAGE 1   
 
 
 C51 COMPILER V9.53.0.0, COMPILATION OF MODULE MAIN
@@ -9,66 +9,77 @@ COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE scr\main.c OPTIMIZE(8,SPEED) BROWSE
 line level    source
 
    1          #include "project_config.h"
-   2          
+   2          sbit RST=P1^1;
    3          void Delay150us();      //@11.0592MHz
    4          
    5          void main()
    6          {
-   7   1          u8 RXBUFF[4];
+   7   1          u8 RXBUFF[4],RXBUFF_L[4];
    8   1          u8 TXBUFF[4]={11,11,11,11};
-   9   1          init_NRF24L01();
-  10   1              OLED_Init();                    //初始化OLED  
-  11   1              OLED_Clear(); 
-  12   1          OLED_ShowString(36,1,"34",16);//音量等级
-  13   1              while(1)
-  14   1              {
-  15   2              nRF24L01_TX_Mode(TXBUFF);
-  16   2              Delay150us();
-  17   2              nRF24L01_RX_Mode(RXBUFF);
-  18   2              if(RXBUFF[0]==101)
-  19   2              {
-  20   3                  OLED_ShowString(36,3,"112",16);//音量等级
-  21   3              }
-  22   2              else if(RXBUFF[0]==102)
+   9   1          timer0_Init();
+  10   1          usart2_init();
+  11   1          InitADC();
+  12   1          init_NRF24L01();
+  13   1              OLED_Init();                    //初始化OLED  
+  14   1              OLED_Clear(); 
+  15   1          OLED_ShowString(36,1,"34",16);
+  16   1              while(1)
+  17   1              {
+  18   2              nRF24L01_TX_Mode(TXBUFF);
+  19   2              Delay150us();
+  20   2              nRF24L01_RX_Mode(RXBUFF);
+  21   2              
+  22   2              if(RXBUFF[0]!=RXBUFF_L[0])
   23   2              {
-  24   3                  OLED_ShowString(36,3,"111",16);//音量等级
-  25   3              }
-  26   2              if(KEY1==0)
-  27   2              {
-  28   3                  TXBUFF[0]=11;TXBUFF[1]=11;TXBUFF[2]=11;TXBUFF[3]=11;
-  29   3              }
-  30   2              else if(KEY2==0)
-  31   2              {
-  32   3                  TXBUFF[0]=22;TXBUFF[1]=22;TXBUFF[2]=22;TXBUFF[3]=22;
-  33   3              }
-  34   2              Delay150us();
-  35   2              }
-  36   1      }
-  37           
-  38          void Delay150us()               //@11.0592MHz
-  39          {
-  40   1              unsigned char i, j;
-  41   1      
-  42   1              _nop_();
-  43   1              _nop_();
-  44   1              _nop_();
-  45   1              i = 2;
-  46   1              j = 153;
-  47   1              do
-  48   1              {
-  49   2                      while (--j);
-  50   2              } while (--i);
-  51   1      }
+  24   3                  if(RXBUFF[0]==open)
+  25   3                  {
+  26   4                      OLED_ShowString(36,3,"112",16);
+  27   4                      *RXBUFF_L=*RXBUFF;
+  28   4                  }
+  29   3                  else if(RXBUFF[0]==close)
+  30   3                  {  
+  31   4                      OLED_ShowString(36,3,"111",16);
+  32   4                      SendString2("英");
+  33   4                      *RXBUFF_L=*RXBUFF;
+  34   4                  }
+  35   3              }
+  36   2              if(KEY1==0)
+  37   2              {
+  38   3                  TXBUFF[0]=11;TXBUFF[1]=11;TXBUFF[2]=11;TXBUFF[3]=11;
+  39   3              }
+  40   2              else if(KEY2==0)
+  41   2              {
+  42   3                  TXBUFF[0]=22;TXBUFF[1]=22;TXBUFF[2]=22;TXBUFF[3]=22;
+  43   3              }
+  44   2              OLED_ShowNum(5,5,((GetADCResult(0)<<2)|ADC_LOW2),4,16);
+  45   2              Delay150us();
+  46   2              }
+  47   1      }
+  48           
+  49          void Delay150us()               //@11.0592MHz
+  50          {
+  51   1              unsigned char i, j;
+  52   1      
+  53   1              _nop_();
+  54   1              _nop_();
+C51 COMPILER V9.53.0.0   MAIN                                                              04/14/2019 20:22:29 PAGE 2   
+
+  55   1              _nop_();
+  56   1              i = 2;
+  57   1              j = 153;
+  58   1              do
+  59   1              {
+  60   2                      while (--j);
+  61   2              } while (--i);
+  62   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-C51 COMPILER V9.53.0.0   MAIN                                                              04/14/2019 17:05:29 PAGE 2   
-
-   CODE SIZE        =    148    ----
-   CONSTANT SIZE    =     15    ----
+   CODE SIZE        =    218    ----
+   CONSTANT SIZE    =     18    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      4       8
+   DATA SIZE        =      4      12
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
